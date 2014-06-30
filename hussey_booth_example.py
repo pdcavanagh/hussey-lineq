@@ -56,29 +56,27 @@ for n,i in enumerate(r.getT()):
     while r_sqr>thresh:
         count=count+1
         correct_2 = a.getT()*i
-        if debug: print ('correct_2:\n%s' % correct_2)
         correct_3 = a*correct_2
-        if debug: print 'correct_3:'
-        if debug: print correct_3
         correct_4 = i.getT()*correct_3
-        if debug: print 'correct_4:'
-        if debug: print correct_4
-
         correct_denom = sum(np.square(correct_3))
-        if debug: print ('correct_denom: %s' % correct_denom)
         correct_5 = correct_4/correct_denom  
-        if debug: print 'correct_4/correct_denom: {}'.format(correct_5)
-
         correct_term = np.multiply(correct_5,correct_2)
-        if debug: print correct_term
         e=e-correct_term #update the approximation vector 
         i = a*e - b_mod[:,n]
+        
+        if debug: 
+            print ('correct_2:\n%s' % correct_2)
+            print ('correct_3:\n%s' % correct_3)
+            print ('correct_4:\n%s' % correct_4)
+            print ('correct_denom: %s' % correct_denom)
+            print ('correct_4/correct_denom: %s' % correct_5)
+            print ('correct_term: %s' % correct_term)
 
         r_sqr=0 #reset the r_sqr value
         for resid in i:
             if debug:
-                print resid 
-                print r_sqr
+                print ('resid: %s' % resid) 
+                print ('r_sqr: %s' % r_sqr)
             r_sqr = resid*resid + r_sqr
     if results: 
         print ('Global residual value (R^2): {0:5.2f}'.format(float(r_sqr)))
